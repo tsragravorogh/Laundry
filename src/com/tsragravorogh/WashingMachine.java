@@ -1,4 +1,4 @@
-package com.company;
+package com.tsragravorogh;
 
 public class WashingMachine {
     private int minWork = 0;

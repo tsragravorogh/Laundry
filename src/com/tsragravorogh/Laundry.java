@@ -1,4 +1,4 @@
-package com.company;
+package com.tsragravorogh;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,9 @@ public class Laundry {
 
 
     public Laundry(int[] minutes, int countOfWashMachine) {
+        for (int m:minutes) {
+            if(m <= 0) throw new LaundryException("Elements of array must be positive");
+        }
         this.minutes = minutes;
         this.countOfWashMachine = countOfWashMachine;
     }
