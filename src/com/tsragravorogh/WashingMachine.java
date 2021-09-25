@@ -1,6 +1,8 @@
 package com.tsragravorogh;
 
-public class WashingMachine {
+import java.util.Comparator;
+
+public class WashingMachine{
     private int minWork = 0;
     private int totalWorks = 0;
 
@@ -24,4 +26,6 @@ public class WashingMachine {
     public int getTotalWorks() {
         return totalWorks;
     }
+
+    public static final Comparator<WashingMachine> COMPARE_BY_MINWORK = Comparator.comparingInt(WashingMachine::getMinWork);
 }

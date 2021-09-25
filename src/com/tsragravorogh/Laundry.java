@@ -1,6 +1,6 @@
 package com.tsragravorogh;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Laundry {
     private ArrayList<WashingMachine> allMachines = new ArrayList<>();
@@ -11,7 +11,7 @@ public class Laundry {
 
     public Laundry(int[] minutes, int countOfWashMachine) {
         for (int m:minutes) {
-            if(m <= 0) throw new LaundryException("Elements of array must be positive");
+            if(m <= 0) throw new IllegalArgumentException("Elements of array must be positive");
         }
         this.minutes = minutes;
         this.countOfWashMachine = countOfWashMachine;
@@ -19,23 +19,22 @@ public class Laundry {
 
     public void doWashing() {
         while (!isWorkDone()){
-            int minWork = Integer.MAX_VALUE;
-            for (WashingMachine wm: allMachines) {
-                if(minWork > wm.getMinWork()) {
-                    minWork = wm.getMinWork();
-                }
-            }
+            int minWork = getMinWork(allMachines);
+
             for(WashingMachine wm: allMachines) {
                 wm.setMinWork(wm.getMinWork() - minWork);
-            }
 
-            for (WashingMachine w : allMachines) {
-                if(w.getMinWork() == 0) {
-                    w.doWash(minutes[clientsIndex]);
+                if(wm.getMinWork() == 0) {
+                    wm.doWash(minutes[clientsIndex]);
                     clientsIndex++;
                 }
             }
         }
+    }
+
+    private int getMinWork(ArrayList<WashingMachine> allMachines) {
+        allMachines.sort(WashingMachine.COMPARE_BY_MINWORK);
+        return allMachines.get(0).getMinWork();
     }
 
     public int countServiceMinutes() {
